@@ -31,10 +31,15 @@ $(document).ready(function(){
 				$("#location_map").attr('style','background-image:url('+result.map+'&style=visibility:off&style=visibility:off&style=feature:water|visibility:on|hue:0x88c8ea|saturation:-10|lightness:1&style=feature:landscape|visibility:on|hue:0xf3f4f4|saturation:-100|lightness:1&style=feature:poi.park|visibility:on|hue:0x91c9ae|saturation:10|lightness:1&style=feature:road|visibility:on&style=feature:road.arterial|visibility:on|hue:0xfddf84|saturation:100|lightness:1&style=feature:road.highway|visibility:on|hue:0xfddf84|saturation:100|lightness:1&style=feature:road.local|visibility:on|hue:0xffffff|saturation:-100|lightness:100&style=feature:road|element:geometry.stroke|visibility:off&style=element:labels|visibility:off);');
 
 				// Insert images
-				$.each(result.images,function(index,value){
-					$("#location_images").append('<img src="'+value+'"" />');
-				});
-				$("#location_images").append('<div class="clear"></div>');
+				if(result.images){
+					$.each(result.images,function(index,value){
+						$("#location_images").append('<img src="'+value+'"" />');
+					});
+					$("#location_images").append('<div class="clear"></div>');
+				}else{
+					$("#location_images").append('<p>There are no images for this location</p>');
+				}
+				
 
 				// Load it all in
 				$("#location_bar").css('top','0');

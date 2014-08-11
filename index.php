@@ -25,7 +25,7 @@
 		<section id="location_bar">
 			<form id="location_search">
 				<div id="form_fade"></div>
-				<input type="text" name="location" placeholder="Search location" autocomplete="off" autofocus="autofocus" />
+				<input type="text" name="location" placeholder="Enter a location" autocomplete="off" autofocus="autofocus" />
 			</form>
 			<div id="location_meta">
 			</div>
