@@ -52,7 +52,6 @@
 
 		$weather = '';
 		if(!isset($data->error)){
-			$weather['summary'] = $data->currently->summary;
 			$weather['icon'] = $data->currently->icon;
 			date_default_timezone_set ($data->timezone);
 			$weather['time'] = date("H:i",$data->currently->time);

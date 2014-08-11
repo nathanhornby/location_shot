@@ -5,17 +5,14 @@ $(document).ready(function(){
 		var query = $("#location_search input[name='location']").val();
 
 		if(query !== ''){
+			// Hide it
 			$("#location_bar").css('top','-100px');
-			if($("#location_map").length > 0){
-				$("#location_map").delay(800).slideUp('fast',function(){
-					$(this).remove();
-				});
-			}
-			if($("#location_images").length > 0){
-				$("#location_images").delay(300).fadeOut(function(){
-					$(this).remove();
-				});
-			}
+			$("#location_map").css('top','-400px');
+			$("#location_images").fadeOut(function(){
+				$(this).html('');
+			});
+
+			// Get data
 			$.ajaxSetup({
 				cache : false
 			});
@@ -25,29 +22,24 @@ $(document).ready(function(){
 			})
 			.done(function(data){
 				var result = $.parseJSON(data);
+
+				// Update location, time and weather
 				$("#location_search input[name='location']").val(result.location);
 				$("#location_meta").html('<p>'+result.weather.time+' <img id="location_weather" src="img/climacons/'+result.weather.icon+'.svg" /></p>');
-				
-				
-				$("#content").hide();
 
-				// Add map
-				$("#content").append('<section id="location_map" style="background-image:url('+result.map+'&style=visibility:off&style=visibility:off&style=feature:water|visibility:on|hue:0x88c8ea|saturation:-10|lightness:1&style=feature:landscape|visibility:on|hue:0xf3f4f4|saturation:-100|lightness:1&style=feature:poi.park|visibility:on|hue:0x91c9ae|saturation:10|lightness:1&style=feature:road|visibility:on&style=feature:road.arterial|visibility:on|hue:0xfddf84|saturation:100|lightness:1&style=feature:road.highway|visibility:on|hue:0xfddf84|saturation:100|lightness:1&style=feature:road.local|visibility:on|hue:0xffffff|saturation:-100|lightness:100&style=feature:road|element:geometry.stroke|visibility:off&style=element:labels|visibility:off);"></section>');
-				$("#location_map").hide();
+				// Update map
+				$("#location_map").attr('style','background-image:url('+result.map+'&style=visibility:off&style=visibility:off&style=feature:water|visibility:on|hue:0x88c8ea|saturation:-10|lightness:1&style=feature:landscape|visibility:on|hue:0xf3f4f4|saturation:-100|lightness:1&style=feature:poi.park|visibility:on|hue:0x91c9ae|saturation:10|lightness:1&style=feature:road|visibility:on&style=feature:road.arterial|visibility:on|hue:0xfddf84|saturation:100|lightness:1&style=feature:road.highway|visibility:on|hue:0xfddf84|saturation:100|lightness:1&style=feature:road.local|visibility:on|hue:0xffffff|saturation:-100|lightness:100&style=feature:road|element:geometry.stroke|visibility:off&style=element:labels|visibility:off);');
 
-				// Add images
-				$("#content").append('<section id="location_images">');
+				// Insert images
 				$.each(result.images,function(index,value){
 					$("#location_images").append('<img src="'+value+'"" />');
 				});
 				$("#location_images").append('<div class="clear"></div>');
-				$("#content").append('</section>');
-				$("#location_images").hide();
 
-				$("#location_bar").delay(300).css('top','0');
-				$("#content").delay(800).show();
-				$("#location_map").delay(800).slideDown(300);
-				$("#location_images").delay(1500).fadeIn();
+				// Load it all in
+				$("#location_bar").css('top','0');
+				$("#location_map").css('top','0');
+				$("#location_images").delay(600).fadeIn();
 			})
 			.fail(function(){
 				alert('Something went wrong :(');

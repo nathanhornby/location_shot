@@ -2,7 +2,6 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -48,7 +47,6 @@ table {
 }
 
 // Variables
-
 @light: #fff;
 @dark: #333;
 
@@ -152,6 +150,7 @@ body,html{
 }
 #location_map{
 	position: relative;
+	top: 0;
 	z-index: 97;
 	padding-top: 50px;
 	height:250px;
@@ -159,8 +158,10 @@ body,html{
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
+	transition: top 600ms;
 }
 #location_images{
+	display: none;
 	position: relative;
 	-webkit-box-shadow: 0 -1px 2px 1px rgba(0,0,0,0.1);
 	box-shadow: 0 -1px 2px 1px rgba(0,0,0,0.1);
