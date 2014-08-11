@@ -54,7 +54,7 @@ table {
 
 // App
 body,html{
-	background: @light;
+	background: @light url('../img/loading.gif') center 20px no-repeat;
 	font-size: 18px;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: 400;
@@ -65,11 +65,13 @@ body,html{
 }
 #location_bar{
 	position: fixed;
+	top: 0;
 	width: 100%;
 	background: @light;
 	-webkit-box-shadow: 0 1px 2px 1px rgba(0,0,0,0.1);
 	box-shadow: 0 1px 2px 1px rgba(0,0,0,0.1);
 	z-index: 99;
+	transition: top 500ms;
 }
 #location_search{
 	position: relative;
@@ -96,22 +98,22 @@ body,html{
 	}
 	::-webkit-input-placeholder {
 		font-family: 'Source Sans Pro', sans-serif;
-		color: @dark;
+		color: lighten(@dark,30%);
 		font-weight: 400;
 	}
 	:-moz-placeholder {
 		font-family: 'Source Sans Pro', sans-serif;
-		color: @dark;
+		color: lighten(@dark,30%);
 		font-weight: 400;
 	}
 	::-moz-placeholder {
 		font-family: 'Source Sans Pro', sans-serif;
-		color: @dark;
+		color: lighten(@dark,30%);
 		font-weight: 400;
 	}
 	:-ms-input-placeholder {
 		font-family: 'Source Sans Pro', sans-serif;
-		color: @dark;
+		color: lighten(@dark,30%);
 		font-weight: 400;
 	}
 	input{

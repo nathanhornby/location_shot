@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 
-<?php require('app.php'); ?>
-
 	<head>
 
 		<meta charset="utf-8" />
@@ -17,6 +15,7 @@
 		<meta property="og:url" content="http://shot.li/location" />
 		<meta property="og:site_name" content="Location Shot" />
 		
+		<!-- Favicons -->
 		<link rel="shortcut icon" href="favicon.ico" />
 		
 		<!-- CSS -->
@@ -30,26 +29,15 @@
 		<section id="location_bar">
 			<form id="location_search">
 				<div id="form_fade"></div>
-				<input type="text" name="location" placeholder="<?= ($place)?$place:'Location' ?>" autocomplete="off" />
+				<input type="text" name="location" placeholder="Search location" autocomplete="off" />
 			</form>
 			<div id="location_meta">
-				<p><?= $weather['time'] ?> <img id="location_weather" src="img/climacons/<?= $weather['icon'] ?>.svg" /></p>
 			</div>
 			<div class="clear"></div>
 		</section>
-		<section id="location_map" style="background-image: url('<?= $map ?>');"></section>
-		<section id="location_images">
-			<?php
-			if($images){
-				foreach($images->channel->item as $image){
-					echo '<img src="'.$image->guid.'" />';
-				}
-			}else{
-				echo'<p>No images to display</p>';
-			}
-			?>
-			<div class="clear"></div>
-		</section>
+
+		<div id="content">
+		</div>
 
 		<!-- JS -->
 		<script type="application/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
