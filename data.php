@@ -1,4 +1,6 @@
 <?
+	error_reporting(0);
+	
 	// Private settings
 	require_once('../shotli_location_private.php');
 
@@ -133,7 +135,8 @@
 			$map = "http://maps.googleapis.com/maps/api/staticmap?center=".urlencode($location['address1'])."&zoom=".$zoom."&size=640x640&scale=2&maptype=road";
 
 			// Encode data
-			$data = json_encode(["location" => $place, "weather" => $weather, "map" => $map, "images" => $images]);
+			$raw = array("location" => $place, "weather" => $weather, "map" => $map, "images" => $images);
+			$data = json_encode($raw);
 
 			// Output
 			echo $data;
