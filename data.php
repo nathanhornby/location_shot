@@ -63,7 +63,6 @@
 	// Instagram fetch
 	function instagram($tag){
 		$safe_tag = str_replace(' ', '', $tag);
-		$safe_tag = strtolower($safe_tag);
 		$url = "http://instagram.com/tags/".strtolower($safe_tag)."/feed/recent.rss";
 
 		$data = curl_it($url);
