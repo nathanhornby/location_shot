@@ -40,14 +40,13 @@ $(document).ready(function(){
 					$("#location_images").append('<p>There are no images for this location</p>');
 				}
 				
-
 				// Load it all in
 				$("#location_bar").css('top','0');
 				$("#location_map").css('top','0');
 				$("#location_images").delay(600).fadeIn();
 			})
 			.fail(function(){
-				alert('Something went wrong :(');
+				// Blurt
 			});
 		}
 	});
