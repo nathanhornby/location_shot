@@ -2,19 +2,26 @@
 	// Private settings
 	require_once('../shotli_location_private.php');
 
-	// Geocode fetch
-	function geocode($location){
-		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".urlencode($location)."&key=".$_SERVER['GOOGLE_KEY'];
-		
+	// Curl
+	function curl_it($url){
 		$c = curl_init();
 		curl_setopt($c, CURLOPT_URL, $url);
-		curl_setopt($c, CURLOPT_HEADER,0);
+		curl_setopt($c, CURLOPT_HEADER, false);
 		curl_setopt($c, CURLOPT_USERAGENT, $_SERVER["LOCATIONSHOT_USERAGENT"]);
-		curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);
-		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 		 
 		$data = curl_exec($c);
 		curl_close($c);
+
+		return $data;
+	}
+
+	// Geocode fetch
+	function geocode($location){
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".urlencode($location)."&key=".$_SERVER['GOOGLE_KEY'];
+
+		$data = curl_it($url);
 
 		$data = json_decode($data);
 
@@ -38,15 +45,7 @@
 	function weather($lat, $lng){
 		$url = "https://api.forecast.io/forecast/".$_SERVER['FORECAST_KEY']."/".$lat.",".$lng;
 		
-		$c = curl_init();
-		curl_setopt($c, CURLOPT_URL, $url);
-		curl_setopt($c, CURLOPT_HEADER,0);
-		curl_setopt($c, CURLOPT_USERAGENT, $_SERVER["LOCATIONSHOT_USERAGENT"]);
-		curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);
-		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-		 
-		$data = curl_exec($c);
-		curl_close($c);
+		$data = curl_it($url);
 
 		$data = json_decode($data);
 
@@ -67,15 +66,7 @@
 		$safe_tag = strtolower($safe_tag);
 		$url = "http://instagram.com/tags/".strtolower($safe_tag)."/feed/recent.rss";
 
-		$c = curl_init();
-		curl_setopt($c, CURLOPT_URL, $url);
-		curl_setopt($c, CURLOPT_HEADER,0);
-		curl_setopt($c, CURLOPT_USERAGENT, $_SERVER["LOCATIONSHOT_USERAGENT"]);
-		curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);
-		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-		 
-		$data = curl_exec($c);
-		curl_close($c);
+		$data = curl_it($url);
 
 		try{
 			$images = new SimpleXmlElement($data, LIBXML_NOCDATA);
