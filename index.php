@@ -13,7 +13,7 @@
 		<meta property="og:url" content="http://shot.li/location" />
 		<meta property="og:site_name" content="Location Shot" />
 		
-		<!-- Favicons -->
+		<!-- Favicon -->
 		<link rel="shortcut icon" href="favicon.ico" />
 		
 		<!-- CSS -->
