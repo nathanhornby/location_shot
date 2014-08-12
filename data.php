@@ -84,12 +84,13 @@
 	if($_GET['location']){
 		// Get lat/lng of search query
 		$location = geocode($_GET['location']);
+		
 		if($location){
 			// Get weather
 			$weather = weather($location['latitude'],$location['longitude']);
+
 			// Get images
 			$instagram = instagram($location['address1']);
-
 			foreach ($instagram->channel->item as $image) {
 				$images[] = (string)$image->guid;
 			}
@@ -130,7 +131,11 @@
 
 			// Get map
 			$map = "http://maps.googleapis.com/maps/api/staticmap?center=".urlencode($location['address1'])."&zoom=".$zoom."&size=640x640&scale=2&maptype=road";
+
+			// Encode data
 			$data = json_encode(["location" => $place, "weather" => $weather, "map" => $map, "images" => $images]);
+
+			// Output
 			echo $data;
 		}
 		else{
