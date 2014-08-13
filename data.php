@@ -94,7 +94,7 @@
 			// Get images
 			$instagram = instagram($location['address1']);
 			foreach ($instagram->channel->item as $image) {
-				$images[] = (string)$image->guid;
+				$images[] = array('title' => (string)$image->title, 'image' => (string)$image->guid) ;
 			}
 			
 			// Set zoom level and place string based on number of address components

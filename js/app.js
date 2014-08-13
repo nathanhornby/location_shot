@@ -24,7 +24,8 @@ $(document).ready(function(){
 				var result = $.parseJSON(data);
 
 				// Update location, time and weather
-				$("#location_search input[name='location']").val(result.location);
+				$("#location_search input[name='location']").val('');
+				$("#location_search input[name='location']").attr('placeholder',result.location);
 				$("#location_meta").html('<p>'+result.weather.time+' <img id="location_weather" src="img/climacons/'+result.weather.icon+'.svg" /></p>');
 
 				// Update map
@@ -33,7 +34,7 @@ $(document).ready(function(){
 				// Insert images
 				if(result.images){
 					$.each(result.images,function(index,value){
-						$("#location_images").append('<img src="'+value+'"" />');
+						$("#location_images").append('<div class="image"><span>'+value.title+'</span><img src="'+value.image+'"" /></div>');
 					});
 					$("#location_images").append('<div class="clear"></div>');
 				}else{
