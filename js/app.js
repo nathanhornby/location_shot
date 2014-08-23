@@ -49,6 +49,7 @@ $(document).ready(function(){
 				}else{
 					$("#location_search input[name='location']").val('');
 					$("#location_search input[name='location']").attr('placeholder','Sorry, no results!');
+					$("#location_meta").html('');
 					$("#location_bar").css('top','0');
 				}
 			})
