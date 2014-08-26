@@ -29,12 +29,11 @@
 
 		$location = '';
 		if($data->results){
-			$location['address1'] = $data->results[0]->address_components[0]->long_name;
-			$location['address2'] = $data->results[0]->address_components[1]->long_name;
-			$location['address3'] = $data->results[0]->address_components[2]->long_name;
-			$location['address4'] = $data->results[0]->address_components[3]->long_name;
-			$location['address5'] = $data->results[0]->address_components[4]->long_name;
-			$location['address6'] = $data->results[0]->address_components[5]->long_name;
+			$i = 0;
+			foreach ($data->results[0]->address_components as $address_component[]) {
+				$location['address'.($i+1)] = $address_component[$i]->long_name;
+				$i++;
+			}
 			$location['latitude'] = $data->results[0]->geometry->location->lat;
 			$location['longitude'] = $data->results[0]->geometry->location->lng;
 			return $location;
