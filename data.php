@@ -95,43 +95,16 @@
 			foreach ($instagram->channel->item as $image) {
 				$images[] = array('title' => (string)$image->title, 'image' => (string)$image->guid) ;
 			}
-			
+
+			// Set address search string
+			$center = urlencode($location['address1']);
+
 			// Set zoom level and place string based on number of address components
-			$zoom = '';
-			$place = '';
-			switch (true) {
-				case $location['address6']:
-					$zoom = 15;
-					$place = $location['address1'].", ".$location['address2'].", ".$location['address3'].", ".$location['address4'].", ".$location['address5'].", ".$location['address6'];
-					break;
-				case $location['address5']:
-					$zoom = 14;
-					$place = $location['address1'].", ".$location['address2'].", ".$location['address3'].", ".$location['address4'].", ".$location['address5'];
-					break;
-				case $location['address4']:
-					$zoom = 13;
-					$place = $location['address1'].", ".$location['address2'].", ".$location['address3'].", ".$location['address4'];
-					break;
-				case $location['address3']:
-					$zoom = 12;
-					$place = $location['address1'].", ".$location['address2'].", ".$location['address3'];
-					break;
-				case $location['address2']:
-					$zoom = 9;
-					$place = $location['address1'].", ".$location['address2'];
-					break;
-				case $location['address1']:
-					$zoom = 5;
-					$place = $location['address1'];
-					break;
-				default:
-					$zoom = false;
-					$place = false;
-					break;
-			}
+			$zoom = round( (count($location)-2) * 3.2 );
+			$place = implode( ', ', array_splice($location, 0, (count($location)-2) ) );
 
 			// Get map
-			$map = "http://maps.googleapis.com/maps/api/staticmap?center=".urlencode($location['address1'])."&zoom=".$zoom."&size=640x640&scale=2&maptype=road";
+			$map = "http://maps.googleapis.com/maps/api/staticmap?center=".$center."&zoom=".$zoom."&size=640x640&scale=2&maptype=road";
 
 			// Encode data
 			$raw = array("location" => $place, "weather" => $weather, "map" => $map, "images" => $images);
