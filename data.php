@@ -64,21 +64,13 @@
 	// Instagram fetch
 	function instagram($tag){
 		$safe_tag = str_replace(' ', '', $tag);
-		$url = "http://instagram.com/tags/".strtolower($safe_tag)."/feed/recent.rss";
 
-		$data = curl_it($url);
+		$url = "https://api.instagram.com/v1/tags/".strtolower($safe_tag)."/media/recent?client_id=".$_SERVER["INSTAGRAM_ID"];
 
-		try{
-			$images = new SimpleXmlElement($data, LIBXML_NOCDATA);
-		}catch(Exception $e){
-			return false;
-		}
+		$data_encoded = curl_it($url);
+		$data = json_decode($data_encoded);
 
-		if($images){
-			return $images;
-		}else{
-			return false;
-		};
+		return $data;
 	}
 
 	// Run app on request
@@ -92,8 +84,10 @@
 
 			// Get images
 			$instagram = instagram($location['address1']);
-			foreach ($instagram->channel->item as $image) {
-				$images[] = array('title' => (string)$image->title, 'image' => (string)$image->guid) ;
+			
+			foreach ($instagram->data as $image) {
+				$tags = implode(', ', $image->tags);
+				$images[] = array('title' => $tags, 'image' => $image->images->standard_resolution->url);
 			}
 
 			// Set address search string
